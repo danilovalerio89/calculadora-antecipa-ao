@@ -6,4 +6,5 @@ export const MainFlex = styled.main`
   height: 100vh;
   justify-content: center;
   align-items: center;
+  margin: 25px 0;
 `;

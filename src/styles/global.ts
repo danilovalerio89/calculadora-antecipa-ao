@@ -43,6 +43,24 @@ const GlobalStyle = createGlobalStyle`
 
 
     }
+
+    @media (max-width: 320px){
+        h1{
+            font-size: 1.17rem;
+        }
+        p{
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 630px){
+        h1{
+            font-size: 1.17rem;
+        }
+        p{
+            font-size: 0.9rem;
+        }
+    }
 `;
 
 export default GlobalStyle;
