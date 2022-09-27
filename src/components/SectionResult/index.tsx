@@ -1,4 +1,5 @@
 import { SectionWrapper, Title, DivText } from "./style";
+import DivTextResult from "../DivTextResult";
 
 function SectionResult() {
   return (
@@ -6,20 +7,7 @@ function SectionResult() {
       <Title>
         <h1>VOCÊ RECEBERÁ:</h1>
       </Title>
-      <DivText>
-        <p>
-          Amanhã: <strong>R$0,00</strong>
-        </p>
-        <p>
-          Em 15 dias: <strong>R$0,00</strong>
-        </p>
-        <p>
-          Em 30 dias: <strong>R$0,00</strong>
-        </p>
-        <p>
-          Em 90 dias: <strong>R$0,00</strong>
-        </p>
-      </DivText>
+      <DivTextResult />
     </SectionWrapper>
   );
 }
