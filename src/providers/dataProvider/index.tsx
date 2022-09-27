@@ -1,29 +1,31 @@
 import React, { useContext, createContext, useState } from "react";
 
-interface IContextProviderProps {
+type IContextProviderProps = {
   children: React.ReactNode;
-}
+};
 
-interface IDataContext {
+type IData = {
   1: number;
   30: number;
   60: number;
   90: number;
-}
-
-type IDataProps = {
-  dataResult: IDataContext | null;
-  setDataResult: React.Dispatch<React.SetStateAction<IDataContext | null>>;
 };
 
-export const DataContext = createContext<IDataProps | null>(null);
+type DataContextType = {
+  data: IData | null;
+  setData: React.Dispatch<React.SetStateAction<IData | null>>;
+};
+
+export const DataContext = createContext({} as DataContextType);
 
 export const DataProvider = ({ children }: IContextProviderProps) => {
-  const [dataResult, setDataResult] = useState<IDataContext | null>(null);
+  const [data, setData] = useState<IData | null>(null);
 
   return (
-    <DataContext.Provider value={{ dataResult, setDataResult }}>
+    <DataContext.Provider value={{ data, setData }}>
       {children}
     </DataContext.Provider>
   );
 };
+
+export const useData = () => useContext(DataContext);

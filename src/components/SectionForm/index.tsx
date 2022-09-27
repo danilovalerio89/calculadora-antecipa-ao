@@ -4,7 +4,11 @@ import { TitleBox, FormWrapper, SectionWrapper } from "./style";
 import Input from "../Input";
 import { contentSchema } from "../../schemas/content.schema";
 import { apiAXIOS } from "../../services/api";
+import { useData } from "../../providers/dataProvider";
+
 function SectionForm() {
+  const { data, setData } = useData();
+
   const {
     register,
     handleSubmit,
@@ -14,7 +18,10 @@ function SectionForm() {
   const handleSubmitFunction = async (data: object) => {
     let newData = { ...data, days: [1, 30, 60, 90] };
 
-    await apiAXIOS.post("", newData).then((response) => console.log(response));
+    await apiAXIOS
+      .post("", newData)
+      .then((response) => setData(response.data))
+      .catch((err) => console.log(err));
   };
 
   return (
