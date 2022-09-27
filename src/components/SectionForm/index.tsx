@@ -1,10 +1,11 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TitleBox, FormWrapper, SectionWrapper } from "./style";
 import Input from "../Input";
 import { contentSchema } from "../../schemas/content.schema";
 import { apiAXIOS } from "../../services/api";
 import { useData } from "../../providers/dataProvider";
+import Button from "../Button";
 
 function SectionForm() {
   const { data, setData } = useData();
@@ -15,13 +16,34 @@ function SectionForm() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(contentSchema) });
 
-  const handleSubmitFunction = async (data: object) => {
-    let newData = { ...data, days: [1, 30, 60, 90] };
+  const handleSubmitFunction = async (data: any) => {
+    let fixedDays = [1, 15, 30, 60, 90, 120, 150, 180, 210];
 
-    await apiAXIOS
-      .post("", newData)
-      .then((response) => setData(response.data))
-      .catch((err) => console.log(err));
+    let verifyData = { ...data };
+
+    let dataFiltered = fixedDays.filter(
+      (item) => item == verifyData.anotherDay
+    );
+
+    if (dataFiltered.length > 0) {
+      delete data.anotherDay;
+
+      await apiAXIOS
+        .post("", { ...data, days: fixedDays })
+        .then((response) => setData(response.data))
+        .catch((err) => console.log(err));
+    }
+
+    if (dataFiltered.length == 0) {
+      fixedDays.push(verifyData.anotherDay);
+
+      delete data.anotherDay;
+
+      await apiAXIOS
+        .post("", { ...data, days: fixedDays })
+        .then((response) => setData(response.data))
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
@@ -32,7 +54,7 @@ function SectionForm() {
       <FormWrapper onSubmit={handleSubmit(handleSubmitFunction)}>
         <Input
           title={"Informe o valor da venda *"}
-          placeholder={"R$ 1.000,00"}
+          placeholder={"R$ 1000"}
           register={register}
           name={"amount"}
         />
@@ -45,11 +67,19 @@ function SectionForm() {
         />
         <Input
           title={"Informe o percentual de MDR *"}
-          placeholder={"12"}
+          placeholder={"1"}
           register={register}
           name={"mdr"}
         />
-        <button type="submit">Enviar</button>
+        <Input
+          title={"Outra data de recebimento? Qual?"}
+          placeholder={"Data entre 1 e 210. (210 Taxa mínima)"}
+          register={register}
+          name={"anotherDay"}
+          defaultValue={210}
+          label={"Data padrão 210. (210 Dias é taxa mínima)"}
+        />
+        <Button type="submit" name="Enviar Rapido" />
       </FormWrapper>
     </SectionWrapper>
   );

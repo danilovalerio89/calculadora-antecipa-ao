@@ -4,11 +4,16 @@ type IContextProviderProps = {
   children: React.ReactNode;
 };
 
-type IData = {
+export type IData = {
   1: number;
+  15: number;
   30: number;
   60: number;
   90: number;
+  120: number;
+  150: number;
+  180: number;
+  210: number;
 };
 
 type DataContextType = {

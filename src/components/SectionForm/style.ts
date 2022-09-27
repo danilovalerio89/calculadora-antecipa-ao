@@ -27,3 +27,11 @@ export const FormWrapper = styled.form`
   flex-direction: column;
   align-items: center;
 `;
+
+export const Test = styled.input`
+  border: none;
+  border-bottom: 2px solid black;
+  outline: none;
+  width: 25px;
+  margin-left: 4px;
+`;
