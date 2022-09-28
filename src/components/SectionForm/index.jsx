@@ -72,7 +72,6 @@ function SectionForm() {
         .post("?timeout", data)
         .then((response) => {
           setModal({ timeout: false });
-          setData(response.data);
         })
         .catch((err) => console.log(err));
     }

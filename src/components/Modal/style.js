@@ -44,3 +44,26 @@ export const Loading = styled.div`
     }
   }
 `;
+
+export const CloseModalTimeOut = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  p {
+    margin: 0;
+    padding: 0 20px;
+  }
+  header {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    button {
+      padding: 5px;
+      background-color: var(--clr-title-blue);
+      border: 1px solid var(--clr-input-border);
+      margin: 5px;
+    }
+  }
+`;
