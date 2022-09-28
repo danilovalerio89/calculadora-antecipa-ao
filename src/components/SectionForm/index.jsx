@@ -16,7 +16,7 @@ function SectionForm() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(contentSchema) });
 
-  const handleSubmitFunction = async (data: any) => {
+  const handleSubmitFunction = async (data) => {
     let fixedDays = [1, 15, 30, 60, 90, 120, 150, 180, 210];
 
     let verifyData = { ...data };

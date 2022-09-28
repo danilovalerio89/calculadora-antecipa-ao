@@ -1,10 +1,7 @@
-import { SetStateAction, useState } from "react";
 import { useData } from "../../providers/dataProvider";
 import { DivText } from "./style";
 
 function DivTextResult() {
-  let test = {};
-
   let key = "";
   let value = 0;
 
@@ -28,8 +25,6 @@ function DivTextResult() {
     value = firstValue[0];
     key = firstKey[0];
   }
-
-  // console.log(Object.values(test));
 
   return (
     <DivText>

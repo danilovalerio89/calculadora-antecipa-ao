@@ -1,4 +1,4 @@
-import { SectionWrapper, Title, DivText } from "./style";
+import { SectionWrapper, Title } from "./style";
 import DivTextResult from "../DivTextResult";
 
 function SectionResult() {

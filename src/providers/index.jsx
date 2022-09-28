@@ -1,10 +1,6 @@
 import { DataProvider } from "./dataProvider";
 
-interface IContextProviderProps {
-  children: React.ReactNode;
-}
-
-const Provider = ({ children }: IContextProviderProps) => {
+const Provider = ({ children }) => {
   return <DataProvider>{children}</DataProvider>;
 };
 
