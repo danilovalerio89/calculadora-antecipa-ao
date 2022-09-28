@@ -17,33 +17,14 @@ function SectionForm() {
   } = useForm({ resolver: yupResolver(contentSchema) });
 
   const handleSubmitFunction = async (data) => {
-    let fixedDays = [1, 15, 30, 60, 90, 120, 150, 180, 210];
+    let arrDays = data.days.split(",");
 
-    let verifyData = { ...data };
+    data.days = arrDays;
 
-    let dataFiltered = fixedDays.filter(
-      (item) => item == verifyData.anotherDay
-    );
-
-    if (dataFiltered.length > 0) {
-      delete data.anotherDay;
-
-      await apiAXIOS
-        .post("", { ...data, days: fixedDays })
-        .then((response) => setData(response.data))
-        .catch((err) => console.log(err));
-    }
-
-    if (dataFiltered.length == 0) {
-      fixedDays.push(verifyData.anotherDay);
-
-      delete data.anotherDay;
-
-      await apiAXIOS
-        .post("", { ...data, days: fixedDays })
-        .then((response) => setData(response.data))
-        .catch((err) => console.log(err));
-    }
+    await apiAXIOS
+      .post("", data)
+      .then((response) => setData(response.data))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -71,14 +52,16 @@ function SectionForm() {
           register={register}
           name={"mdr"}
         />
+
         <Input
-          title={"Outra data de recebimento? Qual?"}
-          placeholder={"Data entre 1 e 210. (210 Taxa mínima)"}
+          title={"Datas de recebimento"}
+          name={"days"}
           register={register}
-          name={"anotherDay"}
-          defaultValue={210}
-          label={"Data padrão 210. (210 Dias é taxa mínima)"}
+          placeholder="1, 15, 30, 90"
+          label={"Exemplo: 1, 15,30,60"}
+          defaultValue={"1, 15, 30, 90"}
         />
+
         <Button type="submit" name="Enviar Rapido" />
       </FormWrapper>
     </SectionWrapper>

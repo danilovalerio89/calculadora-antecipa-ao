@@ -6,7 +6,9 @@ export const SectionWrapper = styled.div`
 
   @media (min-width: 768px) {
     width: 40%;
-    padding: 25px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 

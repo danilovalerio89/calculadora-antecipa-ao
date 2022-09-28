@@ -21,3 +21,15 @@ export const InputWrapper = styled.div`
     font-weight: 600;
   }
 `;
+
+export const MinimalInput = styled.div`
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  p {
+    color: var(--clr-sub-title-dark);
+  }
+  input {
+    width: 25px;
+  }
+`;
