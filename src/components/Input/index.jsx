@@ -1,20 +1,13 @@
-import { InputWrapper, MinimalInput } from "./style";
+import { InputWrapper, SpanError, NormalSpan } from "./style";
 
-function Input({ title, label, normalInput = true, register, name, ...rest }) {
+function Input({ title, label, errors, register, name, ...rest }) {
   return (
-    <>
-      {normalInput ? (
-        <InputWrapper>
-          <p>{title}</p>
-          <input type="text" {...register(name)} {...rest} />
-          {label ? <span>{label}</span> : null}
-        </InputWrapper>
-      ) : (
-        <MinimalInput>
-          <input type="text" {...register(name)} {...rest} />
-        </MinimalInput>
-      )}
-    </>
+    <InputWrapper>
+      <p>{title}</p>
+      <input type="text" {...register(name)} {...rest} />
+      {label ? <NormalSpan>{label}</NormalSpan> : null}
+      {errors ? <SpanError>{errors.message}</SpanError> : null}
+    </InputWrapper>
   );
 }
 export default Input;

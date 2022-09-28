@@ -38,19 +38,21 @@ function SectionForm() {
           placeholder={"R$ 1000"}
           register={register}
           name={"amount"}
+          errors={errors.amount}
         />
         <Input
           title={"Em quantas parcelas *"}
           placeholder={"12"}
-          label={"Máximo de 12 parcelas"}
           register={register}
           name={"installments"}
+          errors={errors.installments}
         />
         <Input
           title={"Informe o percentual de MDR *"}
           placeholder={"1"}
           register={register}
           name={"mdr"}
+          errors={errors.mdr}
         />
 
         <Input

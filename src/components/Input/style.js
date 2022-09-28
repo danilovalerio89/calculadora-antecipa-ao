@@ -16,7 +16,6 @@ export const InputWrapper = styled.div`
     padding: 10px;
   }
   span {
-    color: var(--clr-span-input);
     font-size: 0.7rem;
     font-weight: 600;
   }
@@ -32,4 +31,11 @@ export const MinimalInput = styled.div`
   input {
     width: 25px;
   }
+`;
+export const NormalSpan = styled.span`
+  color: var(--clr-span-input);
+`;
+
+export const SpanError = styled.span`
+  color: var(--clr-input-error);
 `;

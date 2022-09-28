@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
         --clr-input-border:rgb(234,239,241);
         --clr-input-outline: rgb(159,205,241);
 
-
+        --clr-input-error: rgb(232, 28,28);
     }
 
     @media (max-width: 320px){
