@@ -5,10 +5,17 @@ import Input from "../Input";
 import { contentSchema } from "../../schemas/content.schema";
 import { apiAXIOS } from "../../services/api";
 import { useData } from "../../providers/dataProvider";
+import { useModal } from "../../providers/modalProvider";
 import Button from "../Button";
+import { useState } from "react";
 
 function SectionForm() {
   const { data, setData } = useData();
+  const { modal, setModal } = useModal();
+
+  // const [delay, setDelay] = useState(false);
+  // const [timeOut, setTimeOut] = useState(false);
+  // const [internalError, setInternalError] = useState(false);
 
   const {
     register,
@@ -16,10 +23,59 @@ function SectionForm() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(contentSchema) });
 
+  const setDelayButton = () => {
+    setModal({
+      delay: !modal.delay,
+      timeout: false,
+      internalError: false,
+      openModal: false,
+    });
+  };
+
+  const setTimeOutButton = () => {
+    setModal({
+      delay: false,
+      timeout: !modal.timeout,
+      internalError: false,
+      openModal: false,
+    });
+  };
+
+  const setInternalErrorButton = () => {
+    setModal({
+      delay: false,
+      timeout: false,
+      internalError: !modal.internalError,
+      openModal: false,
+    });
+  };
+
   const handleSubmitFunction = async (data) => {
     let arrDays = data.days.split(",");
 
     data.days = arrDays;
+
+    if (modal.delay) {
+      setModal({ delay: true, openModal: true });
+      await apiAXIOS
+        .post("?delay=4000", data)
+        .then((response) => {
+          setModal({ delay: false, openModal: false });
+          setData(response.data);
+        })
+        .catch((err) => console.log(err));
+    }
+
+    if (modal.timeout) {
+      setModal({ timeout: true, openModal: true });
+      await apiAXIOS
+        .post("?timeout", data)
+        .then((response) => {
+          setModal({ timeout: false });
+          setData(response.data);
+        })
+        .catch((err) => console.log(err));
+    }
 
     await apiAXIOS
       .post("", data)
@@ -64,8 +120,26 @@ function SectionForm() {
           defaultValue={"1, 15, 30, 90"}
         />
 
-        <Button type="submit" name="Enviar Rapido" />
+        <Button
+          type="submit"
+          name={
+            modal.delay
+              ? "Enviar com Delay"
+              : modal.timeout
+              ? "Enviar com TimeOut"
+              : modal.internalError
+              ? "Simular Internal Error"
+              : "Enviar"
+          }
+        />
       </FormWrapper>
+      <div>
+        <button onClick={() => setDelayButton()}>Delay Button</button>
+        <button onClick={() => setTimeOutButton()}>Time Out </button>
+        <button onClick={() => setInternalErrorButton()}>
+          Internal Server Error
+        </button>
+      </div>
     </SectionWrapper>
   );
 }
