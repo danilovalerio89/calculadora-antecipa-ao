@@ -1,5 +1,8 @@
 import { useModal } from "../../providers/modalProvider";
-import { ModalWrapper, Loading, CloseModalTimeOut } from "./style";
+import ModalDelay from "./ModalDelay";
+import ModalInternalError from "./ModalInternalError";
+import ModalTimeOut from "./ModalTimeOut";
+import { ModalWrapper } from "./style";
 
 function Modal() {
   const { modal, setModal } = useModal();
@@ -17,21 +20,16 @@ function Modal() {
     <>
       {modal.delay && modal.openModal ? (
         <ModalWrapper>
-          <Loading />
-          <p>Calculando valores</p>
+          <ModalDelay />
         </ModalWrapper>
       ) : modal.timeout && modal.openModal ? (
         <ModalWrapper>
-          <CloseModalTimeOut>
-            <header>
-              <button onClick={() => closeTimeOutModal()}>X</button>
-            </header>
-            <p>Ocorreu algum erro inesperado, tempo esgotado.</p>
-            <footer>Tente novamente</footer>
-          </CloseModalTimeOut>
+          <ModalTimeOut closeTimeOutModal={closeTimeOutModal} />
         </ModalWrapper>
       ) : modal.internalError && modal.openModal ? (
-        <ModalWrapper>Internal Error</ModalWrapper>
+        <ModalWrapper>
+          <ModalInternalError />
+        </ModalWrapper>
       ) : null}
     </>
   );

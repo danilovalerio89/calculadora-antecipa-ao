@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TitleBox, FormWrapper, SectionWrapper } from "./style";
+import { TitleBox, FormWrapper, SectionWrapper, DivButtons } from "./style";
 import Input from "../Input";
 import { contentSchema } from "../../schemas/content.schema";
 import { apiAXIOS } from "../../services/api";
@@ -75,11 +75,20 @@ function SectionForm() {
         })
         .catch((err) => console.log(err));
     }
-
-    await apiAXIOS
-      .post("", data)
-      .then((response) => setData(response.data))
-      .catch((err) => console.log(err));
+    if (modal.internalError) {
+      setModal({ internalError: true, openModal: true });
+      await apiAXIOS
+        .post("?internalError", data)
+        .then((response) => {
+          setModal({ internalError: false });
+        })
+        .catch((err) => console.log(err));
+    } else {
+      await apiAXIOS
+        .post("", data)
+        .then((response) => setData(response.data))
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
@@ -132,13 +141,13 @@ function SectionForm() {
           }
         />
       </FormWrapper>
-      <div>
+      <DivButtons>
         <button onClick={() => setDelayButton()}>Delay Button</button>
         <button onClick={() => setTimeOutButton()}>Time Out </button>
         <button onClick={() => setInternalErrorButton()}>
           Internal Server Error
         </button>
-      </div>
+      </DivButtons>
     </SectionWrapper>
   );
 }

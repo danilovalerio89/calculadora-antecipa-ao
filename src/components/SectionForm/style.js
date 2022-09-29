@@ -35,3 +35,18 @@ export const Test = styled.input`
   width: 25px;
   margin-left: 4px;
 `;
+
+export const DivButtons = styled.div`
+  padding-top: 25px;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
+  button {
+    padding: 5px;
+    background-color: var(--clr-input-border);
+    border: 1px solid var(--clr-input-error);
+    color: var(--clr-title-dark);
+    border-radius: 5px;
+  }
+`;
